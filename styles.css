@@ -431,18 +431,28 @@ html {
     padding: 0 2rem;
 }
 
-.event-card {
+.event-card,
+.project-card {
     background: white;
     border-radius: 12px;
     padding: 1.25rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, opacity 0.5s ease;
     height: 400px;
     display: flex;
     flex-direction: column;
+    opacity: 0;
+    transform: translateY(50px);
 }
 
-.event-card:hover {
+.event-card.visible,
+.project-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.event-card:hover,
+.project-card:hover {
     transform: translateY(-10px);
 }
 
@@ -523,12 +533,19 @@ html {
 .project-card {
     background-color: #ffffff; /* White background for cards */
     color: #333333;
-    width: 300px;
+    width: 430px;
     border-radius: 10px; /* Rounded corners */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Soft shadow */
     overflow: hidden;
     text-align: center;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, opacity 0.5s ease;
+    opacity: 0;
+    transform: translateY(50px);
+}
+
+.project-card.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .project-card:hover {

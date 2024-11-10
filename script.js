@@ -43,6 +43,52 @@ document.addEventListener('DOMContentLoaded', () => {
     observer.observe(teamTitle);
     observer.observe(eventsTitle);
     observer.observe(projectsTitle);
+
+    // Event cards animation
+    const eventCards = document.querySelectorAll('.event-card');
+    const eventSection = document.querySelector('#events');
+    let eventsHasAnimated = false;
+
+    const eventObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !eventsHasAnimated) {
+                eventCards.forEach((card, index) => {
+                    setTimeout(() => {
+                        card.classList.add('visible');
+                    }, index * 200);
+                });
+                eventsHasAnimated = true;
+                eventObserver.unobserve(eventSection);
+            }
+        });
+    }, {
+        threshold: 0.2
+    });
+
+    eventObserver.observe(eventSection);
+
+    // Project cards animation (separate observer)
+    const projectCards = document.querySelectorAll('.project-card');
+    const projectSection = document.querySelector('#Projects');
+    let projectsHasAnimated = false;
+
+    const projectObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !projectsHasAnimated) {
+                projectCards.forEach((card, index) => {
+                    setTimeout(() => {
+                        card.classList.add('visible');
+                    }, index * 200);
+                });
+                projectsHasAnimated = true;
+                projectObserver.unobserve(projectSection);
+            }
+        });
+    }, {
+        threshold: 0.2
+    });
+
+    projectObserver.observe(projectSection);
 });
 
 // Create an Intersection Observer
