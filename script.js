@@ -35,13 +35,16 @@ document.addEventListener('DOMContentLoaded', () => {
         threshold: 0.1 // Trigger when at least 10% of the element is visible
     });
 
-    // Observe both team and events titles
+    // Observe team, events, and projects titles
     const teamTitle = document.querySelector('.team-title');
     const eventsTitle = document.querySelector('.events-title');
+    const projectsTitle = document.querySelector('#Projects .events-title');
     
     observer.observe(teamTitle);
     observer.observe(eventsTitle);
+    observer.observe(projectsTitle);
 });
+
 // Create an Intersection Observer
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -142,31 +145,5 @@ window.addEventListener('resize', () => {
 // Initialize and animate particles
 initParticles();
 animateParticles();
-
-
-
-
-const form = document.getElementById('contact-form');
-
-form.addEventListener('submit', (event) => {
-    event.preventDefault();
-
-    // Add your form submission logic here, e.g., sending data to a server
-
-    // Display a success message or animation
-    alert('Message sent successfully!');
-    form.reset();
-});
-
-const contactHeading = document.querySelector('.contact-heading');
-
-window.addEventListener('scroll', () => {
-    const scrollPosition = window.scrollY;
-    const headingOffsetTop = contactHeading.offsetTop;
-
-    if (scrollPosition >= headingOffsetTop - 100) {
-        contactHeading.classList.add('fadeIn');
-    }
-});
 
 
