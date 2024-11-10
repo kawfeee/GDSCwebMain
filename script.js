@@ -16,12 +16,35 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 2000); // Wait for 2 seconds before fading out
     });
 
-    // Clone cards for infinite scroll
-    cards.forEach(card => {
-        const clone = card.cloneNode(true);
-        track.appendChild(clone);
-    });
-   
+    // Only clone cards for desktop view
+    function handleCardTrack() {
+        if (window.innerWidth > 768) {
+            // Clear existing clones
+            track.innerHTML = '';
+            
+            // Add original cards
+            cards.forEach(card => {
+                track.appendChild(card.cloneNode(true));
+            });
+            
+            // Add clones for infinite scroll
+            cards.forEach(card => {
+                track.appendChild(card.cloneNode(true));
+            });
+        } else {
+            // Reset for mobile view
+            track.innerHTML = '';
+            cards.forEach(card => {
+                track.appendChild(card.cloneNode(true));
+            });
+        }
+    }
+
+    // Initial setup
+    handleCardTrack();
+
+    // Update on resize
+    window.addEventListener('resize', handleCardTrack);
 
     // Create an Intersection Observer
     const observer = new IntersectionObserver((entries) => {

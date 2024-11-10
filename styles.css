@@ -1035,3 +1035,184 @@ h2{
         transform: translateY(-9px) rotate(-45deg);
     }
 }
+
+
+/* responsivity  */
+/* Base styles update */
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+    position: relative;
+}
+
+/* Mobile Responsive Updates */
+@media (max-width: 768px) {
+    /* Container width fixes */
+    .content, 
+    .events-container,
+    .team-container,
+    .footer-content,
+    .text-section,
+    #contact-form {
+        width: 100%;
+        max-width: 100%;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        margin-left: 0;
+        margin-right: 0;
+        box-sizing: border-box;
+    }
+
+    /* Text content fixes */
+    .description, 
+    .events, 
+    .belowSymbol {
+        width: 100%;
+        padding: 0;
+        word-wrap: break-word;
+    }
+
+    /* Social icons container */
+    .social-icons {
+        margin-left: 0;
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* Card fixes */
+    .event-card,
+    .project-card {
+        width: 100%;
+        margin: 0;
+    }
+
+    /* Image container fixes */
+    .event-image {
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .event-image img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+    }
+
+    /* Team section fixes */
+    .card-track {
+        padding: 1rem 0;
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+    /* Contact form fixes */
+    #contact-form {
+        width: 100%;
+    }
+
+    .container .btn {
+        transform: scale(0.9);
+        margin: 0 auto;
+    }
+
+    /* Footer adjustments */
+    .footer {
+        width: 100%;
+    }
+
+    .footer-social {
+        padding-left: 0;
+        justify-content: center;
+    }
+
+    /* Navigation menu fixes */
+    .nav-menu.active {
+        width: 100vw;
+        left: 0;
+    }
+}
+
+/* Additional fixes for very small devices */
+@media (max-width: 360px) {
+    .building-section {
+        padding: 0;
+    }
+
+    .building {
+        width: 80%;
+        max-width: 200px;
+    }
+
+    .text-section {
+        padding: 1rem 0.5rem;
+    }
+}
+
+/* Team section responsive fixes */
+@media (max-width: 768px) {
+    .team-container {
+        overflow: hidden;
+        padding: 1rem 0;
+    }
+
+    .card-track {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+        animation: none; /* Disable scroll animation on mobile */
+        padding: 1rem;
+    }
+
+    .card {
+        flex: 0 0 calc(50% - 1rem); /* Two cards per row */
+        min-width: 250px;
+        margin: 0;
+        animation: fadeIn 0.5s ease forwards;
+    }
+
+    /* Fade in animation for cards */
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+}
+
+/* Additional fixes for very small devices */
+@media (max-width: 480px) {
+    .card {
+        flex: 0 0 100%; /* One card per row */
+    }
+}
+
+/* Update the social links for mobile devices */
+@media (max-width: 768px) {
+    .card .social-links {
+        display: flex;
+        justify-content: center;
+        gap: 0.8rem; /* Reduce gap between icons */
+    }
+
+    .card .social-links img {
+        width: 24px; /* Smaller icon size for mobile */
+        height: 24px;
+    }
+}
+
+/* Even smaller for very small devices */
+@media (max-width: 480px) {
+    .card .social-links img {
+        width: 20px; /* Even smaller for very small screens */
+        height: 20px;
+    }
+
+    .card .social-links {
+        gap: 0.6rem; /* Further reduce gap */
+    }
+}
