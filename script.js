@@ -89,6 +89,34 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     projectObserver.observe(projectSection);
+
+    // Mobile Menu Functionality
+    const hamburger = document.querySelector('.hamburger');
+    const navMenu = document.querySelector('.nav-menu');
+
+    function toggleMenu() {
+        hamburger.classList.toggle('active');
+        navMenu.classList.toggle('active');
+    }
+
+    function closeMenu() {
+        hamburger.classList.remove('active');
+        navMenu.classList.remove('active');
+    }
+
+    hamburger.addEventListener('click', toggleMenu);
+
+    // Close menu when clicking a link
+    navLinks.forEach(link => {
+        link.addEventListener('click', closeMenu);
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!navMenu.contains(e.target) && !hamburger.contains(e.target)) {
+            closeMenu();
+        }
+    });
 });
 
 // Create an Intersection Observer
