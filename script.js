@@ -140,6 +140,52 @@ document.addEventListener('DOMContentLoaded', () => {
             closeMenu();
         }
     });
+
+    const teamContainer = document.querySelector('.team-container');
+    const cardTrack = document.querySelector('.card-track');
+    let isHovered = false;
+    let startX = 0;
+    let scrollLeft = 0;
+
+    // Enable horizontal scroll only when hovering over team container
+    teamContainer.addEventListener('mouseenter', () => {
+        isHovered = true;
+        document.body.style.overflowY = 'hidden'; // Disable vertical scroll
+    });
+
+    teamContainer.addEventListener('mouseleave', () => {
+        isHovered = false;
+        document.body.style.overflowY = 'auto'; // Re-enable vertical scroll
+    });
+
+    // Handle horizontal scroll on wheel event
+    teamContainer.addEventListener('wheel', (e) => {
+        if (isHovered) {
+            e.preventDefault();
+            const maxScroll = cardTrack.scrollWidth - teamContainer.clientWidth;
+            const scrollAmount = e.deltaY * 2; // Adjust scroll speed
+
+            // Calculate new scroll position
+            scrollLeft = Math.max(0, Math.min(maxScroll, scrollLeft + scrollAmount));
+            
+            // Apply smooth scroll
+            cardTrack.style.transform = `translateX(-${scrollLeft}px)`;
+        }
+    });
+
+    // Optional: Add touch support for mobile devices
+    teamContainer.addEventListener('touchstart', (e) => {
+        startX = e.touches[0].pageX - teamContainer.offsetLeft;
+        scrollLeft = cardTrack.scrollLeft;
+    });
+
+    teamContainer.addEventListener('touchmove', (e) => {
+        if (!isHovered) return;
+        e.preventDefault();
+        const x = e.touches[0].pageX - teamContainer.offsetLeft;
+        const walk = (x - startX) * 2; // Adjust scroll speed
+        cardTrack.scrollLeft = scrollLeft - walk;
+    });
 });
 
 // Create an Intersection Observer

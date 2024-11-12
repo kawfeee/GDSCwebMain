@@ -140,64 +140,28 @@ h1 {
 
 .team-title {
     text-align: center;
-    color: white;
+    color: #ffffff;
     margin-bottom: 3rem;
-    font-size: 3rem;
+    font-size: 4rem;
     opacity: 0;
     transform: translateY(50px);
+    position: relative;
+    padding-top: 2rem;
+}
+
+.team-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background: linear-gradient(to right, #4285F4, #DB4437, #F4B400, #0F9D58); /* Google colors */
 }
 
 .team-title.visible {
     animation: fadeInUp 1s ease forwards;
-}
-
-.team-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem;
-}
-
-@media (max-width: 768px) {
-    .content {
-        flex-direction: column;
-        gap: 1rem;
-    }
-    
-    .building-section {
-        height: auto;
-        padding: 2rem 1rem;
-    }
-    
-    .belowSymbol {
-        font-size: 1.8rem;
-    }
-    
-    h1 {
-        font-size: 2.5rem;
-        text-align: center;
-    }
-    
-    .text-section {
-        padding: 1rem;
-        text-align: center;
-    }
-    
-    .social-icons {
-        justify-content: center;
-    }
-    
-    .team-section {
-        padding: 2rem 1rem;
-    }
-    
-    .team-title {
-        font-size: 2.5rem;
-        margin-bottom: 2rem;
-    }
-    
-    .team-container {
-        padding: 1rem;
-    }
 }
 
 @keyframes fadeInUp {
@@ -212,18 +176,19 @@ h1 {
 }
 
 .team-container {
-    max-width: 100%;
+    max-width: 1200px;
     margin: 0 auto;
     overflow: hidden;
     position: relative;
+    margin-top: 2rem;
 }
 
 .card-track {
     display: flex;
     gap: 2rem;
     padding: 2rem;
-    animation: scroll 40s linear infinite;
     width: fit-content;
+    transition: transform 0.3s ease;
 }
 
 .card {
