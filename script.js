@@ -1,86 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const track = document.querySelector('.card-track');
-    const cards = document.querySelectorAll('.card');
-
-    const navLinks = document.querySelectorAll('.nav-links a');
-    const eventSlides = document.querySelectorAll('.event-slide');
-    
-    // Initial setup
-    handleCardTrack();
-
-    // Update on resize
-    window.addEventListener('resize', handleCardTrack);
-
-    // Create an Intersection Observer
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            // If the element is visible
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
-        });
-    }, {
-        threshold: 0.1 // Trigger when at least 10% of the element is visible
-    });
-
-    // Observe team, events, and projects titles
-    const teamTitle = document.querySelector('.team-title');
-    const eventsTitle = document.querySelector('.events-title');
-    const projectsTitle = document.querySelector('#Projects .events-title');
-    
-    observer.observe(teamTitle);
-    observer.observe(eventsTitle);
-    observer.observe(projectsTitle);
-
-    // Event cards animation
-    const eventCards = document.querySelectorAll('.event-card');
-    const eventSection = document.querySelector('#events');
-    let eventsHasAnimated = false;
-
-    const eventObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting && !eventsHasAnimated) {
-                eventCards.forEach((card, index) => {
-                    setTimeout(() => {
-                        card.classList.add('visible');
-                    }, index * 200);
-                });
-                eventsHasAnimated = true;
-                eventObserver.unobserve(eventSection);
-            }
-        });
-    }, {
-        threshold: 0.2
-    });
-
-    eventObserver.observe(eventSection);
-
-    // Project cards animation (separate observer)
-    const projectCards = document.querySelectorAll('.project-card');
-    const projectSection = document.querySelector('#Projects');
-    let projectsHasAnimated = false;
-
-    const projectObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting && !projectsHasAnimated) {
-                projectCards.forEach((card, index) => {
-                    setTimeout(() => {
-                        card.classList.add('visible');
-                    }, index * 200);
-                });
-                projectsHasAnimated = true;
-                projectObserver.unobserve(projectSection);
-            }
-        });
-    }, {
-        threshold: 0.2
-    });
-
-    projectObserver.observe(projectSection);
-
-    // Mobile Menu Functionality
+    // Hamburger menu functionality
     const hamburger = document.querySelector('.hamburger');
     const navMenu = document.querySelector('.nav-menu');
+    const navLinks = document.querySelectorAll('.nav-links a');
 
     function toggleMenu() {
         hamburger.classList.toggle('active');
@@ -92,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
         navMenu.classList.remove('active');
     }
 
+    // Toggle menu on hamburger click
     hamburger.addEventListener('click', toggleMenu);
 
     // Close menu when clicking a link
@@ -101,138 +24,207 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Close menu when clicking outside
     document.addEventListener('click', (e) => {
-        if (!navMenu.contains(e.target) && !hamburger.contains(e.target)) {
+        if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
             closeMenu();
         }
     });
-});
 
-// Create an Intersection Observer
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        // If the element is visible
-        if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
+    // Prevent menu from staying open on window resize
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 768) {
+            closeMenu();
         }
     });
-}, {
-    threshold: 0.1 // Trigger when at least 10% of the element is visible
-});
 
-// Observe the team title
-const teamTitle = document.querySelector('.team-title');
-observer.observe(teamTitle);
+    const teamContainer = document.querySelector('.team-container');
+    const cardTrack = document.querySelector('.card-track');
+    const cards = document.querySelectorAll('.card');
+    let scrollInterval;
+    let isCardHovered = false;
+    let manualScrolling = false;
+    let scrollPosition = 0;
 
-// Get canvas and set context
-const canvas = document.getElementById('particleCanvas');
-const ctx = canvas.getContext('2d');
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-let particlesArray = [];
-
-// Define a range of colors that work on light and dark backgrounds
-const particleColors = [
-    'rgba(255, 255, 255, 0.7)',  // Light white
-    'rgba(200, 200, 200, 0.5)',  // Light gray
-    'rgba(173, 216, 230, 0.5)',  // Light blue
-    'rgba(255, 223, 186, 0.5)',  // Light peach
-    'rgba(204, 255, 144, 0.5)'   // Light green
-];
-
-
-// Particle Class
-class Particle {
-    constructor(x, y, size, color, speedX, speedY) {
-        this.x = x;
-        this.y = y;
-        this.size = size;
-        this.color = color;
-        this.speedX = speedX;
-        this.speedY = speedY;
+    // Clone cards for seamless loop
+    function setupInfiniteScroll() {
+        cards.forEach(card => {
+            const clone = card.cloneNode(true);
+            addCardListeners(card);
+            addCardListeners(clone);
+            cardTrack.appendChild(clone);
+        });
+        startScrolling();
     }
 
-    // Draw particle
-    draw() {
-        ctx.fillStyle = this.color;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.closePath();
-        ctx.fill();
+    // Add hover listeners to individual cards and track
+    function addCardListeners(card) {
+        card.addEventListener('mouseenter', () => {
+            isCardHovered = true;
+        });
+
+        card.addEventListener('mouseleave', () => {
+            // Only reset if not hovering over the track
+            if (!teamContainer.matches(':hover')) {
+                isCardHovered = false;
+                manualScrolling = false;
+            }
+        });
     }
 
-    // Update particle position
-    update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
+    // Add track hover listeners
+    teamContainer.addEventListener('mouseenter', () => {
+        isCardHovered = true;
+    });
 
-        // Respawn particles at opposite edge
-        if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
-        if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
+    teamContainer.addEventListener('mouseleave', () => {
+        isCardHovered = false;
+        manualScrolling = false;
+    });
+
+    // Handle wheel event on the container
+    teamContainer.addEventListener('wheel', handleWheel);
+
+    function startScrolling() {
+        const scrollSpeed = 1.8;
+        const totalWidth = cards[0].offsetWidth + parseInt(getComputedStyle(cards[0]).marginRight);
+        const resetPosition = totalWidth * cards.length;
+
+        scrollInterval = setInterval(() => {
+            if (!isCardHovered && !manualScrolling) {
+                scrollPosition += scrollSpeed;
+
+                if (scrollPosition >= resetPosition) {
+                    scrollPosition = 0;
+                }
+
+                cardTrack.style.transform = `translateX(-${scrollPosition}px)`;
+            }
+        }, 20);
     }
-}
 
-// Initialize Particles
-function initParticles() {
-    particlesArray = [];
-    const numParticles = 50; // Reduced number of particles
-    for (let i = 0; i < numParticles; i++) {
-        let size = Math.random() * 3 + 1;
-        let x = Math.random() * canvas.width;
-        let y = Math.random() * canvas.height;
-        let color = particleColors[Math.floor(Math.random() * particleColors.length)];
-        let speedX = (Math.random() - 0.5) * 1.5;
-        let speedY = (Math.random() - 0.5) * 1.5;
-        particlesArray.push(new Particle(x, y, size, color, speedX, speedY));
+    function handleWheel(e) {
+        if (isCardHovered) {
+            e.preventDefault();
+            manualScrolling = true;
+            clearTimeout(window.scrollTimeout);
+
+            const totalWidth = cards[0].offsetWidth + parseInt(getComputedStyle(cards[0]).marginRight);
+            const maxScroll = totalWidth * cards.length;
+            
+            scrollPosition += e.deltaY * 2;
+
+            if (scrollPosition >= maxScroll) {
+                scrollPosition = 0;
+            } else if (scrollPosition < 0) {
+                scrollPosition = maxScroll - 1;
+            }
+
+            cardTrack.style.transform = `translateX(-${scrollPosition}px)`;
+
+            window.scrollTimeout = setTimeout(() => {
+                manualScrolling = false;
+            }, 150);
+        }
     }
-}
 
-// Animate Particles
-function animateParticles() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    for (let particle of particlesArray) {
-        particle.draw();
-        particle.update();
-    }
-    requestAnimationFrame(animateParticles);
-}
+    // Touch support
+    let touchStart = 0;
+    let touchScrollStart = 0;
 
-// Adjust canvas size on window resize
-window.addEventListener('resize', () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    initParticles();
-});
+    teamContainer.addEventListener('touchstart', (e) => {
+        touchStart = e.touches[0].clientX;
+        touchScrollStart = scrollPosition;
+        manualScrolling = true;
+        isCardHovered = true;
+    });
 
-// Initialize and animate particles
-initParticles();
-animateParticles();
-const scrollableContainer = document.querySelector('.card-track');
+    teamContainer.addEventListener('touchmove', (e) => {
+        e.preventDefault();
+        const touch = e.touches[0];
+        const diff = touchStart - touch.clientX;
+        scrollPosition = touchScrollStart + diff;
+        
+        const totalWidth = cards[0].offsetWidth + parseInt(getComputedStyle(cards[0]).marginRight);
+        const maxScroll = totalWidth * cards.length;
 
-let isScrolling = false;
-let scrollStartPosition = 0;
-let scrollStartTime = 0;
+        if (scrollPosition >= maxScroll) {
+            scrollPosition = 0;
+        } else if (scrollPosition < 0) {
+            scrollPosition = maxScroll - 1;
+        }
 
-scrollableContainer.addEventListener('mousedown', (event) => {
-  isScrolling = true;
-  scrollStartPosition = event.clientX;
-  scrollStartTime = Date.now();
-});
+        cardTrack.style.transform = `translateX(-${scrollPosition}px)`;
+    });
 
-scrollableContainer.addEventListener('mousemove', (event) => {
-  if (isScrolling) {
-    const deltaX = event.clientX - scrollStartPosition;
-    scrollableContainer.scrollLeft += deltaX;
-    scrollStartPosition = event.clientX;
-  }
-});
+    teamContainer.addEventListener('touchend', () => {
+        setTimeout(() => {
+            isCardHovered = false;
+            manualScrolling = false;
+        }, 100);
+    });
 
-scrollableContainer.addEventListener('mouseup', () => {
-  isScrolling = true;
-});
+    // Handle visibility change
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            clearInterval(scrollInterval);
+        } else {
+            startScrolling();
+        }
+    });
 
-scrollableContainer.addEventListener('wheel', (event) => {
-  event.preventDefault();
-  scrollableContainer.scrollLeft += event.deltaX;
+    // Initialize
+    setupInfiniteScroll();
+
+    // Clean up
+    window.addEventListener('beforeunload', () => {
+        clearInterval(scrollInterval);
+    });
+
+    // Intersection Observer for events and projects sections
+    const observerOptions = {
+        threshold: 0.15,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Reveal title
+                const title = entry.target.querySelector('.events-title');
+                if (title) title.classList.add('reveal');
+
+                // Reveal cards with stagger effect
+                const cards = entry.target.querySelectorAll('.event-card, .project-card');
+                cards.forEach(card => {
+                    card.classList.add('reveal');
+                });
+
+                // Unobserve after animation
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    // Observe events and projects sections
+    const sections = document.querySelectorAll('#events, #Projects');
+    sections.forEach(section => observer.observe(section));
+
+    // Optional: Reset animations when scrolling back to top
+    let lastScrollTop = 0;
+    window.addEventListener('scroll', () => {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+        if (scrollTop < 100 && lastScrollTop > scrollTop) {
+            // Reset animations only for events and projects
+            document.querySelectorAll('#events .reveal, #Projects .reveal')
+                .forEach(element => {
+                    element.classList.remove('reveal');
+                });
+            
+            // Re-observe sections
+            sections.forEach(section => observer.observe(section));
+        }
+        
+        lastScrollTop = scrollTop;
+    });
 });
 
