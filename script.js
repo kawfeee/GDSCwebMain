@@ -5,41 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const navLinks = document.querySelectorAll('.nav-links a');
     const eventSlides = document.querySelectorAll('.event-slide');
     
-    // Preloader
-    const preloader = document.querySelector('.preloader');
-    
-    window.addEventListener('load', () => {
-        setTimeout(() => {
-            preloader.classList.add('fade-out');
-            // Enable scrolling after preloader
-            document.body.style.overflow = 'visible';
-        }, 2000); // Wait for 2 seconds before fading out
-    });
-
-    // Only clone cards for desktop view
-    function handleCardTrack() {
-        if (window.innerWidth > 768) {
-            // Clear existing clones
-            track.innerHTML = '';
-            
-            // Add original cards
-            cards.forEach(card => {
-                track.appendChild(card.cloneNode(true));
-            });
-            
-            // Add clones for infinite scroll
-            cards.forEach(card => {
-                track.appendChild(card.cloneNode(true));
-            });
-        } else {
-            // Reset for mobile view
-            track.innerHTML = '';
-            cards.forEach(card => {
-                track.appendChild(card.cloneNode(true));
-            });
-        }
-    }
-
     // Initial setup
     handleCardTrack();
 
@@ -139,52 +104,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!navMenu.contains(e.target) && !hamburger.contains(e.target)) {
             closeMenu();
         }
-    });
-
-    const teamContainer = document.querySelector('.team-container');
-    const cardTrack = document.querySelector('.card-track');
-    let isHovered = false;
-    let startX = 0;
-    let scrollLeft = 0;
-
-    // Enable horizontal scroll only when hovering over team container
-    teamContainer.addEventListener('mouseenter', () => {
-        isHovered = true;
-        document.body.style.overflowY = 'hidden'; // Disable vertical scroll
-    });
-
-    teamContainer.addEventListener('mouseleave', () => {
-        isHovered = false;
-        document.body.style.overflowY = 'auto'; // Re-enable vertical scroll
-    });
-
-    // Handle horizontal scroll on wheel event
-    teamContainer.addEventListener('wheel', (e) => {
-        if (isHovered) {
-            e.preventDefault();
-            const maxScroll = cardTrack.scrollWidth - teamContainer.clientWidth;
-            const scrollAmount = e.deltaY * 2; // Adjust scroll speed
-
-            // Calculate new scroll position
-            scrollLeft = Math.max(0, Math.min(maxScroll, scrollLeft + scrollAmount));
-            
-            // Apply smooth scroll
-            cardTrack.style.transform = `translateX(-${scrollLeft}px)`;
-        }
-    });
-
-    // Optional: Add touch support for mobile devices
-    teamContainer.addEventListener('touchstart', (e) => {
-        startX = e.touches[0].pageX - teamContainer.offsetLeft;
-        scrollLeft = cardTrack.scrollLeft;
-    });
-
-    teamContainer.addEventListener('touchmove', (e) => {
-        if (!isHovered) return;
-        e.preventDefault();
-        const x = e.touches[0].pageX - teamContainer.offsetLeft;
-        const walk = (x - startX) * 2; // Adjust scroll speed
-        cardTrack.scrollLeft = scrollLeft - walk;
     });
 });
 
@@ -288,5 +207,32 @@ window.addEventListener('resize', () => {
 // Initialize and animate particles
 initParticles();
 animateParticles();
+const scrollableContainer = document.querySelector('.card-track');
 
+let isScrolling = false;
+let scrollStartPosition = 0;
+let scrollStartTime = 0;
+
+scrollableContainer.addEventListener('mousedown', (event) => {
+  isScrolling = true;
+  scrollStartPosition = event.clientX;
+  scrollStartTime = Date.now();
+});
+
+scrollableContainer.addEventListener('mousemove', (event) => {
+  if (isScrolling) {
+    const deltaX = event.clientX - scrollStartPosition;
+    scrollableContainer.scrollLeft += deltaX;
+    scrollStartPosition = event.clientX;
+  }
+});
+
+scrollableContainer.addEventListener('mouseup', () => {
+  isScrolling = true;
+});
+
+scrollableContainer.addEventListener('wheel', (event) => {
+  event.preventDefault();
+  scrollableContainer.scrollLeft += event.deltaX;
+});
 
