@@ -1,4 +1,46 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const preloader = document.querySelector('.preloader');
+    const preloaderVideo = document.getElementById('preloader-video');
+    const body = document.body;
+
+    // Add preload class to body
+    body.classList.add('preload');
+
+    // Start playing the video
+    preloaderVideo.play();
+
+    // Listen for video end
+    preloaderVideo.addEventListener('ended', () => {
+        // Add fade-out class
+        preloader.classList.add('fade-out');
+        
+        // Remove preloader and preload class after animation
+        setTimeout(() => {
+            preloader.style.display = 'none';
+            body.classList.remove('preload');
+        }, 500); // Match this with CSS transition duration
+    });
+
+    // Fallback in case video fails to load
+    preloaderVideo.addEventListener('error', () => {
+        preloader.classList.add('fade-out');
+        setTimeout(() => {
+            preloader.style.display = 'none';
+            body.classList.remove('preload');
+        }, 500);
+    });
+
+    // Fallback timeout (in case video takes too long)
+    const fallbackTimeout = setTimeout(() => {
+        if (preloader.style.display !== 'none') {
+            preloader.classList.add('fade-out');
+            setTimeout(() => {
+                preloader.style.display = 'none';
+                body.classList.remove('preload');
+            }, 500);
+        }
+    }, 5000); // 5 seconds fallback
+
     // Hamburger menu functionality
     const hamburger = document.querySelector('.hamburger');
     const navMenu = document.querySelector('.nav-menu');
