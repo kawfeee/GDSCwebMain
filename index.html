@@ -11,17 +11,19 @@
     
     <link rel="icon" href="./assets/logoNObg.png">
     <link rel="stylesheet" href="style.css">
+    
 </head>
 
 <body>
+    
+    <canvas id="particleCanvas"></canvas>
     <div class="preloader">
         <video id="preloader-video" muted>
-            <source src="./assets/Animation - 1730972546160 (1).mp4" type="video/mp4">
+            <source src="assets/Animation - 1731771711365.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
     </div>
     
-    <canvas id="particleCanvas"></canvas>
     <nav>
         <div class="logo">
             <a href="index.html">
@@ -423,24 +425,38 @@
                 <button class="see-all-btn">See All</button>
             </div>
         </section>
-        <section  id="contact">
-            <div class="text-section" >
-                <h1 class="contact-heading">Connect with Us</h1>
-                <form id="contact-form">
-                    <label for="name">Name:</label>
-                    <input type="text" id="name" name="name" required>
-
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required>
-
-                    <label for="message">Message:</label>
-                    <textarea id="message" name="message" required></textarea>
-                    <div class="container">
-                        <div class="btn"><a href="#">Send Message</a>
+        <section class="contact-section" id="contact">
+            <div class="contact-container">
+                <h1>Contact us</h1>
+                <p class="contact-desc">
+                    Need to get in touch with us? Either fill out the form with your inquiry or 
+                    find the <a href="mailto:gdsc@citchennai.net" class="department-email">department email</a> you'd like to contact below.
+                </p>
+                
+                <form class="contact-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">First name*</label>
+                            <input type="text" id="firstName" required>
                         </div>
+                        <div class="form-group">
+                            <label for="lastName">Last name</label>
+                            <input type="text" id="lastName">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email*</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">What can we help you with?</label>
+                        <textarea id="message" rows="4"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">Submit</button>
                 </form>
-
-            </div>
             </div>
         </section>
 

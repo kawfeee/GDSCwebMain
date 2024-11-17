@@ -78,14 +78,13 @@ main {
     width: 100%;
     opacity: 0;
     animation: slideInFromLeft 1s ease-out forwards;
-    animation-delay: 0.5s;
+    animation-delay: 3.5s; /* Adjust delay to 3 seconds */
 }
 
 .building {
     max-width: 400px;
     height: 200px;
 }
-
 .belowSymbol {
     font-size: 2.5rem;
     font-weight: 900;
@@ -93,8 +92,8 @@ main {
     margin-top: 1rem;
     max-width: 800px;
     opacity: 0;
-    animation: fadeIn 1s ease-out forwards;
-    animation-delay: 1.2s;
+    animation: fadeIn 1.5s ease-out forwards;
+    animation-delay: 4.2s; /* Adjust delay to 3 seconds */
 }
 
 .text-section {
@@ -107,6 +106,7 @@ main {
     display: inline-block;
     letter-spacing: -4px; /* Adjust as needed */
     animation: colorChange 3s ;
+    animation-delay: 3.9s; /* Add a delay for the animated text */
   }
   
   @keyframes colorChange {
@@ -724,146 +724,6 @@ h2{
 }
 
 
-#contact-form {
-    background-color: #222;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    color: #fff;
-    max-width: 600px; /* Adjust the maximum width as needed */
-    margin: 0 auto;
-}
-
-#contact-form label {
-    display: block;
-    margin-bottom: 5px;
-}
-
-#contact-form input, #contact-form textarea {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: none;
-    border-radius: 5px;
-    background-color: #333;
-    color: #fff;
-}
-
-#contact-form button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-}.contact-heading {
-    font-family: Roboto, sans-serif;
-    font-weight: bold;
-    color: whitesmoke; /* Google's primary blue */
-    text-align: center;
-    margin-bottom: 20px;
-    animation: fadeIn 1s ease-in-out;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-.container .btn {
-	position: relative;
-	top: 0;
-	left: 0;
-	width: 250px;
-	height: 50px;
-	margin: 0;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-    scale: 80%;
-}
-.container .btn a {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	background: rgba(255, 255, 255, 0.05);
-	box-shadow: 0 15px 15px rgba(0, 0, 0, 0.3);
-	border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-	border-top: 1px solid rgba(255, 255, 255, 0.1);
-	border-radius: 30px;
-	padding: 10px;
-	letter-spacing: 1px;
-	text-decoration: none;
-	overflow: hidden;
-	color: #fff;
-	font-weight: 400px;
-	z-index: 1;
-	transition: 0.5s;
-	backdrop-filter: blur(15px);
-}
-.container .btn:hover a {
-	letter-spacing: 3px;
-}
-.container .btn a::before {
-	content: "";
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 50%;
-	height: 100%;
-	background: linear-gradient(to left, rgba(255, 255, 255, 0.15), transparent);
-	transform: skewX(45deg) translate(0);
-	transition: 0.5s;
-	filter: blur(0px);
-}
-.container .btn:hover a::before {
-	transform: skewX(45deg) translate(200px);
-}
-.container .btn::before {
-	content: "";
-	position: absolute;
-	left: 50%;
-	transform: translatex(-50%);
-	bottom: -5px;
-	width: 30px;
-	height: 10px;
-	background: #2db2ff;
-	border-radius: 10px;
-	transition: 0.5s;
-	transition-delay: 0.5;
-}
-.container .btn:hover::before /*lightup button*/ {
-	bottom: 0;
-	height: 50%;
-	width: 80%;
-	border-radius: 30px;
-}
-
-.container .btn:hover::after /*lightup button*/ {
-	top: 0;
-	height: 50%;
-	width: 80%;
-	border-radius: 30px;
-}
-.fade-up {
-    opacity: 0;
-    transform: translateY(50px);
-    transition: opacity 1s ease-out, transform 1s ease-out;
-}
-
-.fade-up.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
 
 /* Add this breakpoint for tablets */
 @media (min-width: 769px) and (max-width: 1024px) {
@@ -1165,7 +1025,7 @@ html, body {
     }
 
     /* Team section fixes */
-    .card-track {
+    .track {
         padding: 1rem 0;
         width: 100%;
         overflow-x: hidden;
@@ -1316,31 +1176,12 @@ html, body {
     text-align: center;
 }
 
-.sym {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    opacity: 0; /* Start hidden */
-    animation: slideInFromLeft 1s ease-out forwards; /* Add animation */
-    animation-delay: 0.5s; /* Optional: Add a slight delay */
-}
 
 .building {
     max-width: 400px;
     height: 200px;
 }
 
-/* Add animation for the text below the logo */
-.belowSymbol {
-    font-size: 2.5rem;
-    font-weight: 900;
-    color: rgb(185, 181, 181);
-    margin-top: 1rem;
-    max-width: 800px;
-    opacity: 0;
-    animation: fadeIn 1s ease-out forwards;
-    animation-delay: 1.2s;
-}
 
 @keyframes fadeIn {
     0% {
@@ -1360,17 +1201,17 @@ html, body {
     }
     
     .belowSymbol {
-        animation-delay: 1s;
+        animation-delay: 3.8s;
     }
 }
 
 /* Container for cards */
 .cardd-container {
     display: flex; /* Use flexbox for horizontal layout */
-    justify-content: space-around; /* Space between the cards */
-    gap: 10px; /* Optional: adjust the gap between cards */
+    gap: 50px; /* Optional: adjust the gap between cards */
     flex-wrap: wrap; /* Allows the cards to wrap onto the next line if space is insufficient */
-  }
+  justify-content: center;
+}
   
   /* Card styles */
   .cardd {
@@ -1696,7 +1537,7 @@ html, body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: #1a1a1a;
+    background: white;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1718,4 +1559,121 @@ html, body {
 /* Hide scrollbar during preload */
 body.preload {
     overflow: hidden;
+}
+
+/* Contact section styles */
+.contact-section {
+    background-color: transparent;
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+    padding: 4rem 2rem;
+    color: white;
+}
+
+.contact-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.contact-section h1 {
+    font-size: 3rem;
+    color: #dcdcdc;
+    margin-bottom: 1.5rem;
+}
+
+.contact-desc {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 2.5rem;
+    max-width: 600px;
+}
+
+.department-email {
+    color: #f7f9fb;
+    text-decoration: none;
+}
+
+.department-email:hover {
+    text-decoration: underline;
+}
+
+.contact-form {
+    max-width: 800px;
+    background: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+}
+
+.form-row {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.form-group {
+    flex: 1;
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #1a1a1a;
+    font-size: 1rem;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    background: #f5f5f5;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #4285F4;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(66, 133, 244, 0.1);
+}
+
+.submit-btn {
+    background: #3a86ff;
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.submit-btn:hover {
+    background: #2e69c9;
+    transform: translateY(-1px);
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .contact-section h1 {
+        font-size: 2.5rem;
+    }
+
+    .contact-container {
+        padding: 1rem;
+    }
+
+    .contact-form {
+        padding: 1.5rem;
+    }
 }
