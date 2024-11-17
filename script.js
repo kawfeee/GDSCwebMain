@@ -375,4 +375,22 @@ document.addEventListener('DOMContentLoaded', () => {
         // Reset form
         contactForm.reset();
     });
-});
+});function showText(card) {
+    const textElement = card.querySelector('.text');
+    const hoverText = textElement.getAttribute('data-hover-text');
+    textElement.textContent = hoverText;
+  }
+  
+  function hideText(card) {
+    const textElement = card.querySelector('.text');
+    if (card.classList.contains('error')) {
+      textElement.textContent = 'Know more about us?';
+    } else if (card.classList.contains('info')) {
+      textElement.textContent = 'What do we do?';
+    } else if (card.classList.contains('success')) {
+      textElement.textContent = 'Why Join Us??';
+    } else if (card.classList.contains('warning')) {
+      textElement.textContent = 'Our Vison..';
+    }
+  }
+  
