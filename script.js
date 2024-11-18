@@ -383,7 +383,42 @@ document.addEventListener('DOMContentLoaded', () => {
         // Reset form
         contactForm.reset();
     });
-});function showText(card) {
+
+    // Only apply desktop scroll behavior if not on mobile
+    if (window.innerWidth > 768) {
+        // Your existing desktop scroll code remains unchanged
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        cardTrack.addEventListener('mousedown', (e) => {
+            isDown = true;
+            cardTrack.classList.add('active');
+            startX = e.pageX - cardTrack.offsetLeft;
+            scrollLeft = cardTrack.scrollLeft;
+        });
+
+        cardTrack.addEventListener('mouseleave', () => {
+            isDown = false;
+            cardTrack.classList.remove('active');
+        });
+
+        cardTrack.addEventListener('mouseup', () => {
+            isDown = false;
+            cardTrack.classList.remove('active');
+        });
+
+        cardTrack.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - cardTrack.offsetLeft;
+            const walk = (x - startX) * 2;
+            cardTrack.scrollLeft = scrollLeft - walk;
+        });
+    }
+});
+
+function showText(card) {
     const textElement = card.querySelector('.text');
     const hoverText = textElement.getAttribute('data-hover-text');
     textElement.textContent = hoverText;

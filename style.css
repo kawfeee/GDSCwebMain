@@ -203,6 +203,7 @@ h1 {
 .card {
     flex: 0 0 300px;
     min-width: 300px;
+    height: 390px;
     background: #BDBDBD;
     border-radius: 15px;
     padding: 1.5rem;
@@ -1128,73 +1129,24 @@ html, body {
     }
 
     .card-track {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 0.8rem;
-        padding: 0.5rem;
-        width: 100%;
-        transform: none !important;
-        animation: none !important;
-        position: static;
-    }
-
-    .card {
-        width: 100%;
-        height: 220px;
-        min-width: unset;
-        margin: 0;
-        padding: 0.5rem;
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(5px);
-        border-radius: 10px;
-        border: 1px solid rgba(255, 255, 255, 0.2);
         display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        transition: transform 0.3s ease;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;  /* Firefox */
+        -ms-overflow-style: none;  /* IE/Edge */
+        padding: 1rem;
+        gap: 1.5rem;
     }
 
-    .card:hover {
-        transform: translateY(-5px);
+    .card-track::-webkit-scrollbar {
+        display: none; /* Chrome/Safari/Opera */
     }
 
-    .card img {
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-        margin-bottom: 0.5rem;
-        border: 2px solid #4285F4;
-    }
-
-    .card h3 {
-        font-size: 0.9rem;
-        margin: 0.2rem 0;
-        text-align: center;
-        color: white;
-    }
-
-    .card p {
-        font-size: 0.8rem;
-        margin: 0.1rem 0;
-        text-align: center;
-        color: rgba(255, 255, 255, 0.8);
-    }
-
-    .card .social-links {
-        margin-top: 0.3rem;
-        display: flex;
-        gap: 0.5rem;
-    }
-
-    .card .social-links img {
-        width: 20px;
-        height: 20px;
-        transition: transform 0.2s ease;
-    }
-
-    .card .social-links img:hover {
-        transform: scale(1.2);
+    .team-card {
+        flex: 0 0 80%;
+        scroll-snap-align: center;
     }
 }
 
@@ -1879,5 +1831,39 @@ body.preload {
     .alert-card:hover {
         transform: scale(1.1);
         /* font-size: 2px; */
+    }
+}
+
+/*IMPORTANT Mobile Responsive Styles for team section*/
+@media screen and (max-width: 480px) {
+    .card {
+        flex: 0 0 220px !important;
+        min-width: 220px !important;
+        height: 230px !important;
+    }
+
+    .social-icons {
+        gap: 0.8rem !important;
+        margin-left: 30% !important;
+    }
+
+    .social-icons img {
+        width: 18px !important;
+        height: 18px !important;
+    }
+
+    .team-container {
+        height: 280px !important;
+    }
+
+    .team-section {
+        min-height: auto !important;
+        padding: 2rem 1rem !important;
+    }
+
+    /* Reduce social icons size in team cards */
+    .social-links img {
+        width: 20px !important;
+        height: 20px !important;
     }
 }
