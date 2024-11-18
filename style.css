@@ -680,8 +680,11 @@ html {
 
 .footer-social {
     display: flex;
-    gap: 10px; /* Space between social icons */
     justify-content: center;
+    align-items: center;
+    gap: 10px; /* Space between social icons */
+    margin-top: 10px;
+    width: 100%;
 }
 
 .footer-bottom {
@@ -709,6 +712,12 @@ html {
     justify-content: center; /* Horizontally centers the buttons */
     gap: 15px; /* Adds even spacing between social icons */
     margin-top: 10px; /* Space between the heading and buttons */
+}
+
+.footer-social a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .footer-social a img {
@@ -933,6 +942,7 @@ h2{
 
     .footer-social {
         justify-content: center;
+        padding-left: 0;
     }
 
     .google-colors span {
