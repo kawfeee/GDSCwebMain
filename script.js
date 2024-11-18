@@ -173,28 +173,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Clone cards for seamless loop
     function setupInfiniteScroll() {
-        cards.forEach(card => {
-            const clone = card.cloneNode(true);
-            addCardListeners(card);
-            addCardListeners(clone);
-            cardTrack.appendChild(clone);
-        });
-        startScrolling();
+        // Check if not on mobile
+        if (window.innerWidth > 768) {
+            cards.forEach(card => {
+                const clone = card.cloneNode(true);
+                addCardListeners(card);
+                addCardListeners(clone);
+                cardTrack.appendChild(clone);
+            });
+            startScrolling();
+        }
     }
 
     // Add hover listeners to individual cards and track
     function addCardListeners(card) {
-        card.addEventListener('mouseenter', () => {
-            isCardHovered = true;
-        });
+        // Only add listeners if not on mobile
+        if (window.innerWidth > 768) {
+            card.addEventListener('mouseenter', () => {
+                isCardHovered = true;
+            });
 
-        card.addEventListener('mouseleave', () => {
-            // Only reset if not hovering over the track
-            if (!teamContainer.matches(':hover')) {
-                isCardHovered = false;
-                manualScrolling = false;
-            }
-        });
+            card.addEventListener('mouseleave', () => {
+                // Only reset if not hovering over the track
+                if (!teamContainer.matches(':hover')) {
+                    isCardHovered = false;
+                    manualScrolling = false;
+                }
+            });
+        }
     }
 
     // Add track hover listeners
@@ -211,6 +217,8 @@ document.addEventListener('DOMContentLoaded', () => {
     teamContainer.addEventListener('wheel', handleWheel);
 
     function startScrolling() {
+        // Only start scroll if not on mobile
+        if (window.innerWidth <= 768) return;
         const scrollSpeed = 1.8;
         const totalWidth = cards[0].offsetWidth + parseInt(getComputedStyle(cards[0]).marginRight);
         const resetPosition = totalWidth * cards.length;

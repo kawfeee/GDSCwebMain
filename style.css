@@ -714,12 +714,6 @@ html {
     margin-top: 10px; /* Space between the heading and buttons */
 }
 
-.footer-social a {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 .footer-social a img {
     max-width: 32px; /* Adjust the size of social icons (if needed) */
     height: auto;
@@ -942,7 +936,6 @@ h2{
 
     .footer-social {
         justify-content: center;
-        padding-left: 0;
     }
 
     .google-colors span {
@@ -1129,81 +1122,109 @@ html, body {
 /* Team section responsive fixes */
 @media (max-width: 768px) {
     .team-container {
-        overflow: hidden;
-        padding: 1rem 0;
+        overflow: visible;
+        padding: 0.5rem;
+        height: auto;
     }
 
     .card-track {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 1rem;
-        animation: none; /* Disable scroll animation on mobile */
-        padding: 1rem;
-        scroll-behavior: smooth;
-    }
-
-    @keyframes scroll {
-    
-        5% {
-            transform: translateX(0);
-        }
-        100% {
-            transform: translateX(calc(-300px * 5 - 2rem * 5)); /* Adjust based on card width and gap */
-            transform: translateX(calc(-750px * 5 - 2rem * 5)); /* Adjust based on card width and gap */
-        }
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.8rem;
+        padding: 0.5rem;
+        width: 100%;
+        transform: none !important;
+        animation: none !important;
+        position: static;
     }
 
     .card {
-        flex: 0 0 calc(50% - 1rem); /* Two cards per row */
-        min-width: 250px;
+        width: 100%;
+        height: 220px;
+        min-width: unset;
         margin: 0;
-        animation: fadeIn 0.5s ease forwards;
+        padding: 0.5rem;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(5px);
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.3s ease;
     }
 
-    /* Fade in animation for cards */
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    .card:hover {
+        transform: translateY(-5px);
+    }
+
+    .card img {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        margin-bottom: 0.5rem;
+        border: 2px solid #4285F4;
+    }
+
+    .card h3 {
+        font-size: 0.9rem;
+        margin: 0.2rem 0;
+        text-align: center;
+        color: white;
+    }
+
+    .card p {
+        font-size: 0.8rem;
+        margin: 0.1rem 0;
+        text-align: center;
+        color: rgba(255, 255, 255, 0.8);
+    }
+
+    .card .social-links {
+        margin-top: 0.3rem;
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    .card .social-links img {
+        width: 20px;
+        height: 20px;
+        transition: transform 0.2s ease;
+    }
+
+    .card .social-links img:hover {
+        transform: scale(1.2);
     }
 }
 
 /* Additional fixes for very small devices */
 @media (max-width: 480px) {
+    .team-container {
+        padding: 0.3rem;
+    }
+
+    .card-track {
+        gap: 0.6rem;
+        padding: 0.3rem;
+    }
+
     .card {
-        flex: 0 0 100%; /* One card per row */
-    }
-}
-
-/* Update the social links for mobile devices */
-@media (max-width: 768px) {
-    .card .social-links {
-        display: flex;
-        justify-content: center;
-        gap: 0.8rem; /* Reduce gap between icons */
+        height: 200px;
+        padding: 0.4rem;
     }
 
-    .card .social-links img {
-        width: 24px; /* Smaller icon size for mobile */
-        height: 24px;
-    }
-}
-
-/* Even smaller for very small devices */
-@media (max-width: 480px) {
-    .card .social-links img {
-        width: 20px; /* Even smaller for very small screens */
-        height: 20px;
+    .card img {
+        width: 50px;
+        height: 50px;
     }
 
-    .card .social-links {
-        gap: 0.6rem; /* Further reduce gap */
+    .card h3 {
+        font-size: 0.85rem;
+    }
+
+    .card p {
+        font-size: 0.75rem;
     }
 }
 
