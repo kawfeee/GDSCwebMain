@@ -1947,3 +1947,39 @@ body.preload {
     }
   }
   
+/* For the logo */
+.logo a:first-child {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between elements */
+}
+
+/* Add line between logos */
+.logo a:first-child {
+    position: relative;
+}
+
+.logo a:first-child img:first-child {
+    margin-right: 20px; /* Space for the line */
+}
+
+/* The actual line */
+.logo-divider {
+    width: 1.5px;
+    height: 25px;
+    background-color: white;
+    position: absolute;
+    left: 49px; /* Adjust this value to position the line */
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+
+.gdgLOGO {
+    margin-left: -10px;
+}
+
+.clgLOGO {
+    height: 35px !important; /* Increased from default size */
+}
+
