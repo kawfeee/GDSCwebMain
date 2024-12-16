@@ -192,13 +192,17 @@ h1 {
 
 .team-title {
     text-align: center;
-    color: #4285F4; /* Google Blue color */
+    color:white;
     margin-bottom: 3rem;
     font-size: 4rem;
     font-weight: bold;
     padding-top: 2rem;
     opacity: 1; /* Make sure it's fully visible */
     position: relative;
+    font-family: "Josefin Sans", serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
 }
 
 .team-title.visible {
@@ -491,7 +495,13 @@ html {
     margin-top: 4rem;
     transform: translateY(50px);
     opacity: 0.9;
+    font-family: "Josefin Sans", serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  
 }
+
 
 .events-title.visible {
     animation: fadeInUp 1s ease forwards;
@@ -508,97 +518,87 @@ html {
 
 .event-card,
 .project-card {
-    background: #c0bfbf;
-    border-radius: 12px;
-    padding: 1.25rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, opacity 0.5s ease;
-    height: auto;
-    min-height: 300px;
-    display: flex;
-    flex-direction: column;
-    transition: background 1s ease-in-out, color 1s ease-in-out, box-shadow 1s ease-in-out;
+    background: rgba(40, 40, 40, 0.8);
+    border-radius: 15px;
+    padding: 1.5rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.event-card .event-title,
-.project-card:hover .event-title {
-    color: #333; /* Initial title color */
-    transition: color 1s ease-in-out;
-}
-
-.event-card .event-description, 
-.project-card:hover .event-description {
-    color: #666; /* Initial description color */
-    opacity: 1;
-    transition: color 1s ease-in-out, opacity 1s ease-in-out;
-}
-
-.event-card.visible,
-.project-card.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.event-card:hover .event-title,
-.project-card:hover .event-title {
-    color: #fff; /* Title color changes to white */
-}
-
-.event-card:hover .event-description,
-.project-card:hover .event-description {
-    color: #fff; /* Description color changes to white */
-    opacity: 1; /* Ensures the description text is fully visible */
+.event-card::before,
+.project-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        45deg,
+        rgba(66, 133, 244, 0.15),
+        rgba(219, 68, 55, 0.15),
+        rgba(244, 180, 0, 0.15),
+        rgba(15, 157, 88, 0.15)
+    );
+    opacity: 0;
+    transition: opacity 0.4s ease;
 }
 
 .event-card:hover,
 .project-card:hover {
-    transform: scale(105%);
-    background: linear-gradient(0deg, #000000 0%, #3e3d3d 50%, #706e6e 100%); /* Black at bottom, lighter at top */
-    background-size: 400% 400%; /* Make the gradient larger for smooth animation */
-    animation: gradient-animation 20s linear infinite; /* Apply the gradient animation */
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5); /* Enhanced shadow */
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
 }
 
-/* Define the gradient animation */
-@keyframes gradient-animation {
-    0% {
-        background-position: 0% 100%; /* Start with black at the bottom */
-    }
-    50% {
-        background-position: 0% 0%; /* Move the black color up */
-    }
-    100% {
-        background-position: 0% 100%; /* Return to the original position with black at the bottom */
-    }
+.event-card:hover::before,
+.project-card:hover::before {
+    opacity: 1;
 }
 
 .event-image {
-    width: 100%;
-    height: 200px;
-    margin-bottom: 1rem;
+    margin: -1.5rem -1.5rem 1rem -1.5rem;
+    overflow: hidden;
+    border-radius: 15px 15px 0 0;
 }
 
 .event-image img {
     width: 100%;
-    height: 100%;
+    height: 200px;
     object-fit: cover;
-    border-radius: 8px;
+    transition: transform 0.4s ease;
+}
+
+.event-card:hover .event-image img,
+.project-card:hover .event-image img {
+    transform: scale(1.05);
 }
 
 .event-title {
-    font-size: 1.3rem;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 0.5rem;
-    text-align: center;
+    color: #ffffff;
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+    position: relative;
+    z-index: 1;
 }
 
 .event-description {
-    color: #666;
-    font-size: 0.95rem;
-    text-align: center;
-    line-height: 1.4;
-    flex-grow: 1;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.6;
+    position: relative;
+    z-index: 1;
+}
+
+/* Add subtle border glow on hover using Google colors */
+.event-card:hover,
+.project-card:hover {
+    box-shadow: 
+        0 15px 30px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(66, 133, 244, 0.3),
+        0 0 0 4px rgba(219, 68, 55, 0.1);
 }
 
 @media (max-width: 1200px) {
@@ -1071,6 +1071,10 @@ html, body {
         width: 100%;
         padding: 0;
         word-wrap: break-word;
+        font-family: "Cinzel", serif;
+  font-optical-sizing: auto;
+  font-weight: 100;
+  font-style: normal;
     }
     
 
@@ -1316,6 +1320,7 @@ html, body {
 
 .cardd:hover {
     color: white; /* Change text color on hover */
+   
 }
 
 /* Container for hover text */
@@ -1337,6 +1342,11 @@ html, body {
     transition: opacity 0.5s ease-in-out;
     z-index: 2;
     border-radius: 15px;
+    font-family: "Montserrat", serif;
+  font-size: large;
+    font-weight: 520;
+  font-style: normal;
+    
 }
 
 /* Show hover text on hover */
@@ -1478,6 +1488,7 @@ html, body {
     width: 100px;
     height: 3px;
     background: linear-gradient(to right, #4285F4, #DB4437, #F4B400, #0F9D58); /* Google colors */
+    
 }
 
 /* Responsive adjustments */
@@ -1632,113 +1643,64 @@ body.preload {
 }
 
 .contact-container {
+    background: rgba(40, 40, 40, 0.8);
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
     max-width: 800px;
     margin: 0 auto;
 }
 
 .contact-section h1 {
-    font-size: 3rem;
-    color: #cccaca;
+    color: #ffffff;
+    font-size: 2rem;
     margin-bottom: 1.5rem;
 }
 
 .contact-desc {
-    font-size: 1.1rem;
-    color: #666;
-    margin-bottom: 2.5rem;
-    max-width: 600px;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 2rem;
 }
-
-.department-email {
-    color: #f7f9fb;
-    text-decoration: none;
-}
-
-.department-email:hover {
-    text-decoration: underline;
-}
-
-.contact-form {
-    max-width: 800px;
-    background: linear-gradient(rgb(101, 99, 99),rgb(78, 77, 77),black);
-    padding: 2rem;
-    margin-top: -1rem;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
-}
-
-.form-row {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
+.department-email{
+    color: yellow;
 }
 
 .form-group {
-    flex: 1;
     margin-bottom: 1.5rem;
 }
 
 .form-group label {
+    color: #ffffff;
     display: block;
     margin-bottom: 0.5rem;
-    color: #1a1a1a;
-    font-size: 1rem;
 }
 
 .form-group input,
 .form-group textarea {
-    width: 80%;
+    width: 100%;
     padding: 0.8rem;
-    border: 1px solid #e0e0e0;
-    border-radius: 4px;
-    background: rgba(227, 220, 220, 0.245);
-    font-size: 1rem;
-    transition: all 0.3s ease;
-}
-
-.form-group input:focus,
-.form-group textarea:focus {
-    outline: none;
-    border-color: #4285F4;
-    background: #fff;
-    box-shadow: 0 0 0 3px rgba(66, 133, 244, 0.1);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: white;
 }
 
 .submit-btn {
-    background: grey;
-    opacity: 0.9;
+    background: #4285F4;
     color: white;
-    border: none;
     padding: 0.8rem 2rem;
-    border-radius: 4px;
-    font-size: 1rem;
+    border: none;
+    border-radius: 8px;
     cursor: pointer;
-    transition: all 0.3s ease;
-    border-radius: 25px;
 }
 
-.submit-btn:hover {
-    background: #2e69c9;
-    transform: translateY(-1px);
-}
-
-/* Responsive styles */
 @media (max-width: 768px) {
-    .form-row {
-        flex-direction: column;
-        gap: 0;
-    }
-
-    .contact-section h1 {
-        font-size: 2.5rem;
-    }
-
     .contact-container {
-        padding: 1rem;
-    }
-
-    .contact-form {
         padding: 1.5rem;
+        margin: 0 1rem;
     }
 }
 
@@ -1786,6 +1748,10 @@ body.preload {
     gap: 1rem;
     position: relative;
     z-index: 2;
+    font-family: "Poppins", serif;
+    font-weight: 600;
+    font-style: normal;
+    
 }
 
 
@@ -1796,8 +1762,6 @@ body.preload {
 }
 
 .alert-card .text {
-    font-size: 14px;
-    font-weight: bold;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
@@ -1818,6 +1782,8 @@ body.preload {
 .alert-card.success:hover {
     background-color: #FBBC05;
     border-color: #e0aa00;
+    font-size: 12px;
+    transition: font-size 0.8s ease-in-out; 
 }
 
 .alert-card.info {
@@ -1829,6 +1795,8 @@ body.preload {
 .alert-card.info:hover {
     background-color: #4285F4;
     border-color: #0056b3;
+    font-size: 12px;
+    transition: font-size 0.8s ease-in-out; 
 }
 
 .alert-card.warning {
@@ -1840,6 +1808,8 @@ body.preload {
 .alert-card.warning:hover {
     background-color: #34A853;
     border-color: #2d8045;
+    font-size: 12px;
+    transition: font-size 0.8s ease-in-out; 
 }
 
 .alert-card.error {
@@ -1851,6 +1821,8 @@ body.preload {
 .alert-card.error:hover {
     background-color: #DB4437;
     border-color: #bd2130;
+    font-size: 12px;
+    transition: font-size 0.8s ease-in-out; 
 }
 
 /* Responsive adjustments */
@@ -2009,5 +1981,38 @@ body.preload {
 
 .clgLOGO {
     height: 35px !important; /* Increased from default size */
+}
+
+@media (max-width: 768px) {
+    .event-card,
+    .project-card {
+        width: 100%; /* Full width on mobile */
+        margin: 1rem 0; /* Add vertical spacing between cards */
+    }
+
+    .event-image {
+        margin: -1.5rem -1.5rem 1rem -1.5rem;
+        width: calc(100% + 3rem); /* Compensate for the negative margins */
+    }
+
+    .event-image img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 15px 15px 0 0;
+    }
+}
+
+/* For even smaller screens */
+@media (max-width: 480px) {
+    .event-card,
+    .project-card {
+        padding: 1.25rem; /* Slightly reduce padding */
+    }
+
+    .event-image {
+        margin: -1.25rem -1.25rem 1rem -1.25rem;
+        width: calc(100% + 2.5rem);
+    }
 }
 
